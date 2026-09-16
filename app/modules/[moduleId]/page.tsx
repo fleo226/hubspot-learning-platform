@@ -5,12 +5,13 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 
-export default function ModulePage({
+export default async function ModulePage({
   params,
 }: {
-  params: { moduleId: string }
+  params: Promise<{ moduleId: string }>
 }) {
-  const module = modules.find((m) => m.id === params.moduleId)
+  const { moduleId } = await params
+  const module = modules.find((m) => m.id === moduleId)
   if (!module) {
     return <div>Module not found</div>
   }

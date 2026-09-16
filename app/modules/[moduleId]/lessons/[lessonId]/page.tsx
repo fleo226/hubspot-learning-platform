@@ -5,23 +5,24 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, ArrowLeft, ArrowRight } from "lucide-react"
 
-export default function LessonPage({
+export default async function LessonPage({
   params,
 }: {
-  params: { moduleId: string; lessonId: string }
+  params: Promise<{ moduleId: string; lessonId: string }>
 }) {
-  const module = modules.find((m) => m.id === params.moduleId)
+  const { moduleId, lessonId } = await params
+  const module = modules.find((m) => m.id === moduleId)
   if (!module) {
     return <div>Module not found</div>
   }
 
-  const lesson = module.lessons.find((l) => l.id === params.lessonId)
+  const lesson = module.lessons.find((l) => l.id === lessonId)
   if (!lesson) {
     return <div>Leçon non trouvée</div>
   }
 
   // Determine previous and next lesson indices
-  const currentIndex = module.lessons.findIndex((l) => l.id === params.lessonId)
+  const currentIndex = module.lessons.findIndex((l) => l.id === lessonId)
   const hasPrevious = currentIndex > 0
   const hasNext = currentIndex < module.lessons.length - 1
   const previousLesson = hasPrevious ? module.lessons[currentIndex - 1] : null

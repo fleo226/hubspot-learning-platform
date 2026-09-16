@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles here */
+html,
+body {
+  @apply bg-[#F8FAFC] text-[#1E293B] antialiased;
+}
+
+body {
+  @apply bg-[#F8FAFC] text-[#1E293B];
+}
+
+* {
+  @apply box-border;
+}
